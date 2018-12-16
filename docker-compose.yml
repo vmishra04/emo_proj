@@ -19,17 +19,20 @@ services:
       - web_network
     depends_on:
       - db
-  nginx:
-    restart: always
-    image: "nginx:latest"
+  ngrok:
+    container_name: ngrok
     ports:
-      - "80:80"
-    volumes:
-      - ./nginx:/etc/nginx/conf.d
+      - "0.0.0.0:4040:4040"
+    image: wernight/ngrok
     networks:
+      - db_network
       - web_network
-    depends_on: 
-      - gentelella
+    depends_on:
+       - gentelella
+    links:
+       - gentelella
+    environment:
+       - NGROK_PORT=gentelella:5000
 networks:
   db_network:
     driver: bridge

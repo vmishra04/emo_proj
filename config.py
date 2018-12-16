@@ -15,13 +15,13 @@ class Config(object):
 
 
 class ProductionConfig(Config):
-    DEBUG = True
+    DEBUG = False
 
     # PostgreSQL database
     SQLALCHEMY_DATABASE_URI = 'postgresql://{}:{}@{}:{}/{}'.format(
         environ.get('GENTELELLA_DATABASE_USER', 'gentelella'),
-        environ.get('GENTELELLA_DATABASE_PASSWORD', 'vivek'),
-        environ.get('GENTELELLA_DATABASE_HOST', 'localhost'),
+        environ.get('GENTELELLA_DATABASE_PASSWORD', 'gentelella'),
+        environ.get('GENTELELLA_DATABASE_HOST', 'db'),
         environ.get('GENTELELLA_DATABASE_PORT', 5432),
         environ.get('GENTELELLA_DATABASE_NAME', 'gentelella')
     )
@@ -33,5 +33,5 @@ class DebugConfig(Config):
 
 config_dict = {
     'Production': ProductionConfig,
-    'Debug': ProductionConfig
+    'Debug': DebugConfig
 }
